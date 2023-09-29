@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@axiom-crypto/core": "^0.3.6",
-    "ethers": "6.6.3",
+    "ethers": "^5.7.2",
     "typescript": "^5.2.2"
   },
   "devDependencies": {

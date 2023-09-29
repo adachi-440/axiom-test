@@ -36,21 +36,22 @@ async function main() {
         chainId: 5,
         mock: false
     };
-    console.log(config);
     const ax = new core_1.Axiom(config);
     const providerUri = process.env.OPTIMISM_RPC_URL || "";
-    const provider = new ethers_1.ethers.JsonRpcProvider(providerUri);
+    const provider = new ethers_1.ethers.providers.JsonRpcProvider(providerUri);
     const wallet = new ethers_1.ethers.Wallet(process.env.PRIVATE_KEY || "", provider);
     const axiomV1Query = new ethers_1.ethers.Contract(QUERY_ADDRESS, ax.getAxiomQueryAbi(), wallet);
     const qb = ax.newQueryBuilder();
+    console.log("QueryBuilder:", qb);
     const UNI_V2_ADDR = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f";
-    await qb.append({ blockNumber: 9221736 });
-    await qb.append({ blockNumber: 9221524, address: UNI_V2_ADDR });
-    await qb.append({ blockNumber: 9221524, address: UNI_V2_ADDR, slot: 0 });
-    await qb.append({ blockNumber: 9221524, address: UNI_V2_ADDR, slot: 1 });
+    await qb.append({ blockNumber: 9221737 });
+    await qb.append({ blockNumber: 9221525, address: UNI_V2_ADDR });
+    await qb.append({ blockNumber: 9221525, address: UNI_V2_ADDR, slot: 0 });
+    await qb.append({ blockNumber: 9221525, address: UNI_V2_ADDR, slot: 1 });
     const { keccakQueryResponse, queryHash, query } = await qb.build();
     const txResult = await axiomV1Query.sendQuery(keccakQueryResponse, REFUND_ADDRESS, query, {
-        value: ethers_1.ethers.parseEther("0.01"), // Goerli payment value
+        value: ethers_1.ethers.utils.parseEther("0.01"),
+        gasLimit: 1000000,
     });
     const txReceipt = await txResult.wait();
     console.log(txReceipt);
