@@ -3,11 +3,9 @@ dotenv.config();
 
 import { Axiom, AxiomConfig } from "@axiom-crypto/core";
 import { ethers } from 'ethers';
+import { QUERY_ADDRESS, REFUND_ADDRESS } from './utils';
 
-const QUERY_ADDRESS = "0x66B0Cfd7d418DAa54CA81E91F63D7B0a7f01fb14";
-const REFUND_ADDRESS = "0x1aaaeb006AC4DE12C4630BB44ED00A764f37bef8"
-
-async function main() {
+export async function sendQuery() {
   const config: AxiomConfig = {
     providerUri: process.env.GOERLI_RPC_URL || "",
     version: "v1",
@@ -49,7 +47,8 @@ async function main() {
   console.log(txReceipt);
 }
 
-main().catch((error) => {
+sendQuery().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+

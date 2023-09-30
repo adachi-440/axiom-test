@@ -1,13 +1,14 @@
 {
   "name": "axiom-test",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/adachi-440/axiom-test.git",
   "author": "adachi_440 <tomoki1999314@gmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "yarn build && node index.js"
+    "send-query": "yarn build && node dist/sendQuery.js",
+    "get-block": "yarn build && node dist/getBlockHashWitness.js"
   },
   "dependencies": {
     "@axiom-crypto/core": "^0.3.6",
